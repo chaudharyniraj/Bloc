@@ -12,7 +12,17 @@ class Homepage extends StatefulWidget {
 
 class _HomepageState extends State<Homepage> {
   int val = -1;
-  // bool ischecked = false;
+  bool ischecked1 = false;
+  bool ischecked2 = false;
+  bool ischecked3 = false;
+  bool ischecked4 = false;
+
+  String selectedStatus = 'Not Selected';
+  String selectedType = 'Not Selected';
+
+  String selectedExam1 = "";
+  String selectedExam2 = "";
+  String selectedExam3 = "";
 
   @override
   void initState() {
@@ -72,9 +82,15 @@ class _HomepageState extends State<Homepage> {
               ),
             ),
             // buildExamListAll(),
-            buildExamList(),
+            buildExamLists(),
           ],
         ),
+      ),
+      floatingActionButton: FloatingActionButton(
+        child: const Text('Submit'),
+        onPressed: () {
+          buildDialogueBox(context);
+        },
       ),
     );
   }
@@ -94,6 +110,7 @@ class _HomepageState extends State<Homepage> {
             setState(() {
               // print(index + 1);
               val = index + 1;
+              selectedStatus = statusContents[index].listName;
             });
           },
           activeColor: Colors.green,
@@ -117,6 +134,10 @@ class _HomepageState extends State<Homepage> {
             setState(() {
               // print(index + 1);
               val = index + 1;
+              // if (typeContents[index].listName.isEmpty) {
+              //   selectedTypes = 'Not selected';
+              // } else {
+              selectedType = typeContents[index].listName;
             });
           },
           activeColor: Colors.green,
@@ -125,52 +146,210 @@ class _HomepageState extends State<Homepage> {
     );
   }
 
-  Widget buildExamList() {
+  Widget buildExamLists() {
     return ListView(
       shrinkWrap: true,
       children: [
-        buildExamCheckboxAll(examContentsAll),
-        ...examContents.map(buildSingleCheckbox).toList()
+        CheckboxListTile(
+          title: Text(examContents[0].listName),
+          controlAffinity: ListTileControlAffinity.leading,
+          value: ischecked1,
+          onChanged: (value) {
+            setState(() {
+              ischecked1 = value!;
+              if (ischecked1 = true) {
+                ischecked2 = true;
+                ischecked3 = true;
+                ischecked4 = true;
+                assignExamDataToDialogueBox();
+              }
+            });
+          },
+        ),
+        CheckboxListTile(
+          title: Text(examContents[1].listName),
+          controlAffinity: ListTileControlAffinity.leading,
+          value: ischecked2,
+          onChanged: (value) {
+            setState(() {
+              ischecked2 = value!;
+              if (ischecked2 == false) {
+                ischecked1 = false;
+              } else if (ischecked2 == true &&
+                  ischecked3 == true &&
+                  ischecked4 == true) {
+                ischecked1 = true;
+                assignExamDataToDialogueBox();
+              }
+              assignExamDataToDialogueBox();
+            });
+          },
+        ),
+        CheckboxListTile(
+          title: Text(examContents[2].listName),
+          controlAffinity: ListTileControlAffinity.leading,
+          value: ischecked3,
+          onChanged: (value) {
+            setState(() {
+              ischecked3 = value!;
+              if (ischecked3 == false) {
+                ischecked1 = false;
+              } else if (ischecked2 == true &&
+                  ischecked3 == true &&
+                  ischecked4 == true) {
+                ischecked1 = true;
+                assignExamDataToDialogueBox();
+              }
+              assignExamDataToDialogueBox();
+            });
+          },
+        ),
+        CheckboxListTile(
+          title: Text(examContents[3].listName),
+          controlAffinity: ListTileControlAffinity.leading,
+          value: ischecked4,
+          onChanged: (value) {
+            setState(() {
+              ischecked4 = value!;
+              if (ischecked4 == false) {
+                ischecked1 = false;
+              } else if (ischecked2 == true &&
+                  ischecked3 == true &&
+                  ischecked4 == true) {
+                ischecked1 = true;
+                assignExamDataToDialogueBox();
+              }
+              assignExamDataToDialogueBox();
+            });
+          },
+        ),
       ],
     );
   }
 
-  Widget buildSingleCheckbox(ExamContents examContents) {
-    return CheckboxListTile(
-      value: examContents.value,
-      controlAffinity: ListTileControlAffinity.leading,
-      title: Text(examContents.listName),
-      onChanged: (value) {
-        setState(() {
-          examContents.value = value!;
-          if (!value) {
-            examContentsAll.value = false;
-          } else {
-            examContentsAll.value =
-                examContents.every((examContent) => examContent.value);
-          }
-          // examContentsAll.value =
-          //     examContents.every((examContent) => examContent.value);
+  void assignExamDataToDialogueBox() {
+    if (ischecked1 == true) {
+      selectedExam1 = examContents[1].listName;
+      selectedExam2 = examContents[2].listName;
+      selectedExam3 = examContents[3].listName;
+    } else if (ischecked2 == true) {
+      selectedExam1 = examContents[1].listName;
+      selectedExam2 = '';
+      selectedExam3 = '';
+    } else if (ischecked3 == true) {
+      selectedExam1 = '';
+      selectedExam2 = examContents[2].listName;
+      selectedExam3 = '';
+    } else if (ischecked4 == true) {
+      selectedExam1 = '';
+      selectedExam2 = '';
+      selectedExam3 = examContents[3].listName;
+    } else if (ischecked2 == true && ischecked3 == true) {
+      selectedExam1 = examContents[1].listName;
+      selectedExam2 = examContents[2].listName;
+      selectedExam3 = '';
+    } else if (ischecked3 == true && ischecked4 == true) {
+      selectedExam1 = '';
+      selectedExam2 = examContents[2].listName;
+      selectedExam3 = examContents[3].listName;
+    } else if (ischecked2 == true && ischecked4 == true) {
+      selectedExam1 = examContents[1].listName;
+      selectedExam2 = '';
+      selectedExam3 = examContents[3].listName;
+    }
+  }
+
+  // Widget buildExamList() {
+  //   return ListView(
+  //     shrinkWrap: true,
+  //     children: [
+  //       buildExamCheckboxAll(examContentsAll),
+  //       ...examContents.map(buildSingleCheckbox).toList()
+  //     ],
+  //   );
+  // }
+
+  // Widget buildSingleCheckbox(ExamContents examContents) {
+  //   return CheckboxListTile(
+  //     value: examContents.value,
+  //     controlAffinity: ListTileControlAffinity.leading,
+  //     title: Text(examContents.listName),
+  //     onChanged: (value) {
+  //       setState(() {
+  //         examContents.value = value!;
+  //         // if (value == true) {
+  //         //   selectedExam1 = examContents.listName;
+  //         // } else {
+  //         //   selectedExam1 = "";
+  //         // }
+  //         if (!value) {
+  //           examContentsAll.value = false;
+  //         } else {
+  //           selectedExam1 = examContents.listName;
+  //           examContentsAll.value =
+  //               examContents.every((examContent) => examContent.value);
+  //         }
+  //         // examContentsAll.value =
+  //         //     examContents.every((examContent) => examContent.value);
+  //       });
+  //     },
+  //   );
+  // }
+
+  // Widget buildExamCheckboxAll(ExamContents examContentsAll) {
+  //   return CheckboxListTile(
+  //     value: examContentsAll.value,
+  //     controlAffinity: ListTileControlAffinity.leading,
+  //     title: Text(examContentsAll.listName),
+  //     onChanged: toggleCheckbox,
+  //   );
+  // }
+
+  // void toggleCheckbox(bool? value) {
+  //   if (value == null) return;
+
+  //   setState(() {
+  //     // selectedExams.add(examContentsAll.listName);
+  //     if (value == true) {
+  //       selectedExam1 = examContentsAll.listName;
+  //     } else {
+  //       selectedExam1 = "";
+  //     }
+  //     examContentsAll.value = value;
+  //     examContents.forEach((examContent) => examContent.value = value);
+  //   });
+  // }
+
+  buildDialogueBox(context) async {
+    return showDialog(
+        context: context,
+        builder: (context) {
+          return AlertDialog(
+            title: const Text('Selected options'),
+            content: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                const Text('Status'),
+                Text(selectedStatus),
+                const Divider(),
+                const Text('Types'),
+                Text(selectedType),
+                const Divider(),
+                const Text('Exam'),
+                Text(selectedExam1),
+                Text(selectedExam2),
+                Text(selectedExam3)
+              ],
+            ),
+            actions: <Widget>[
+              MaterialButton(
+                child: const Text('ok'),
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+              )
+            ],
+          );
         });
-      },
-    );
-  }
-
-  Widget buildExamCheckboxAll(ExamContents examContentsAll) {
-    return CheckboxListTile(
-      value: examContentsAll.value,
-      controlAffinity: ListTileControlAffinity.leading,
-      title: Text(examContentsAll.listName),
-      onChanged: toggleCheckbox,
-    );
-  }
-
-  void toggleCheckbox(bool? value) {
-    if (value == null) return;
-
-    setState(() {
-      examContentsAll.value = value;
-      examContents.forEach((examContent) => examContent.value = value);
-    });
   }
 }
