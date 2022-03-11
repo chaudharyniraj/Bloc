@@ -89,6 +89,13 @@ class _HomepageState extends State<Homepage> {
       floatingActionButton: FloatingActionButton(
         child: const Text('Submit'),
         onPressed: () {
+          // print(ischecked1);
+          // print(ischecked2);
+          // print(ischecked3);
+          // print(ischecked4);
+          setState(() {
+            assignExamDataToDialogueBox();
+          });
           buildDialogueBox(context);
         },
       ),
@@ -161,7 +168,7 @@ class _HomepageState extends State<Homepage> {
                 ischecked2 = true;
                 ischecked3 = true;
                 ischecked4 = true;
-                assignExamDataToDialogueBox();
+                // assignExamDataToDialogueBox();
               }
             });
           },
@@ -179,10 +186,10 @@ class _HomepageState extends State<Homepage> {
                   ischecked3 == true &&
                   ischecked4 == true) {
                 ischecked1 = true;
-                assignExamDataToDialogueBox();
+                // assignExamDataToDialogueBox();
               }
-              assignExamDataToDialogueBox();
             });
+            // assignExamDataToDialogueBox();
           },
         ),
         CheckboxListTile(
@@ -198,10 +205,9 @@ class _HomepageState extends State<Homepage> {
                   ischecked3 == true &&
                   ischecked4 == true) {
                 ischecked1 = true;
-                assignExamDataToDialogueBox();
               }
-              assignExamDataToDialogueBox();
             });
+            // assignExamDataToDialogueBox();
           },
         ),
         CheckboxListTile(
@@ -217,10 +223,9 @@ class _HomepageState extends State<Homepage> {
                   ischecked3 == true &&
                   ischecked4 == true) {
                 ischecked1 = true;
-                assignExamDataToDialogueBox();
               }
-              assignExamDataToDialogueBox();
             });
+            // assignExamDataToDialogueBox();
           },
         ),
       ],
@@ -232,27 +237,45 @@ class _HomepageState extends State<Homepage> {
       selectedExam1 = examContents[1].listName;
       selectedExam2 = examContents[2].listName;
       selectedExam3 = examContents[3].listName;
-    } else if (ischecked2 == true) {
+    } else if (ischecked1 == false &&
+        ischecked2 == true &&
+        ischecked3 == false &&
+        ischecked4 == false) {
       selectedExam1 = examContents[1].listName;
       selectedExam2 = '';
       selectedExam3 = '';
-    } else if (ischecked3 == true) {
+    } else if (ischecked1 == false &&
+        ischecked2 == false &&
+        ischecked3 == true &&
+        ischecked4 == false) {
       selectedExam1 = '';
       selectedExam2 = examContents[2].listName;
       selectedExam3 = '';
-    } else if (ischecked4 == true) {
+    } else if (ischecked1 == false &&
+        ischecked2 == false &&
+        ischecked3 == false &&
+        ischecked4 == true) {
       selectedExam1 = '';
       selectedExam2 = '';
       selectedExam3 = examContents[3].listName;
-    } else if (ischecked2 == true && ischecked3 == true) {
+    } else if (ischecked1 == false &&
+        ischecked2 == true &&
+        ischecked3 == true &&
+        ischecked4 == false) {
       selectedExam1 = examContents[1].listName;
       selectedExam2 = examContents[2].listName;
       selectedExam3 = '';
-    } else if (ischecked3 == true && ischecked4 == true) {
+    } else if (ischecked1 == false &&
+        ischecked2 == false &&
+        ischecked3 == true &&
+        ischecked4 == true) {
       selectedExam1 = '';
       selectedExam2 = examContents[2].listName;
       selectedExam3 = examContents[3].listName;
-    } else if (ischecked2 == true && ischecked4 == true) {
+    } else if (ischecked1 == false &&
+        ischecked2 == true &&
+        ischecked3 == false &&
+        ischecked4 == true) {
       selectedExam1 = examContents[1].listName;
       selectedExam2 = '';
       selectedExam3 = examContents[3].listName;
@@ -329,13 +352,22 @@ class _HomepageState extends State<Homepage> {
             content: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                const Text('Status'),
+                const Text(
+                  'Status',
+                  style: TextStyle(fontWeight: FontWeight.bold),
+                ),
                 Text(selectedStatus),
                 const Divider(),
-                const Text('Types'),
+                const Text(
+                  'Types',
+                  style: TextStyle(fontWeight: FontWeight.bold),
+                ),
                 Text(selectedType),
                 const Divider(),
-                const Text('Exam'),
+                const Text(
+                  'Exam',
+                  style: TextStyle(fontWeight: FontWeight.bold),
+                ),
                 Text(selectedExam1),
                 Text(selectedExam2),
                 Text(selectedExam3)
