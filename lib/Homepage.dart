@@ -13,8 +13,8 @@ class Homepage extends StatefulWidget {
 class _HomepageState extends State<Homepage> {
   int val = 1;
 
-  String selectedStatus = 'Not Selected';
-  String selectedType = 'Not Selected';
+  String selectedStatus = 'All';
+  String selectedType = 'All';
   List selectedExam = [];
 
   @override
@@ -128,11 +128,7 @@ class _HomepageState extends State<Homepage> {
           groupValue: val,
           onChanged: (value) {
             setState(() {
-              // print(index + 1);
               val = index + 1;
-              // if (typeContents[index].listName.isEmpty) {
-              //   selectedTypes = 'Not selected';
-              // } else {
               selectedType = typeContents[index].listName;
             });
           },
@@ -295,19 +291,17 @@ class _HomepageState extends State<Homepage> {
             } else {
               selectedExam.add(checkboxContents.listName);
             }
-          } else {
+          } else if (checkboxContents.value == false) {
             selectedExam.remove(checkboxContents.listName);
           }
+          // else if (examContentsAll.value == true) {
+          //   selectedExam.clear();
+          //   // selectedExam = List.from(examContents);
+          // }
           print(selectedExam);
 
           examContentsAll.value =
               examContents.every((examContent) => examContent.value);
-
-          // if (examContentsAll.value == false &&
-          //     checkboxContents.value == false) {
-          //   selectedExam.clear();
-          //   print(selectedExam);
-          // }
         });
       },
     );
@@ -329,7 +323,12 @@ class _HomepageState extends State<Homepage> {
       // selectedExams.add(examContentsAll.listName);
       examContentsAll.value = value;
       examContents.forEach((examContent) => examContent.value = value);
-      // if (examContentsAll.value == false) {
+      // if (examContentsAll.value == true) {
+      //   selectedExam.clear();
+      //   selectedExam.add(examContentsAll.listName);
+      //   // selectedExam = List.from(examContents.listName);
+      //   print(selectedExam);
+      // } else {
       //   selectedExam.clear();
       // }
       // print(selectedExam);
@@ -361,9 +360,7 @@ class _HomepageState extends State<Homepage> {
                   'Exam',
                   style: TextStyle(fontWeight: FontWeight.bold),
                 ),
-                // Text(selectedExam1),
-                // Text(selectedExam2),
-                // Text(selectedExam3)
+                buildExamDialogueBoxList()
               ],
             ),
             actions: <Widget>[
@@ -376,5 +373,26 @@ class _HomepageState extends State<Homepage> {
             ],
           );
         });
+  }
+
+  buildExamDialogueBoxList() {
+    if (selectedExam.isEmpty) {
+      return const Text('Not Selected');
+    } else {
+      return Expanded(
+        child: Container(
+          height: 200,
+          width: MediaQuery.of(context).size.width,
+          child: ListView.builder(
+            // scrollDirection: Axis.horizontal,
+            shrinkWrap: true,
+            itemCount: selectedExam.length,
+            itemBuilder: (context, index) {
+              return Text(selectedExam[index]);
+            },
+          ),
+        ),
+      );
+    }
   }
 }
