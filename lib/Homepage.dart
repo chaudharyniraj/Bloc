@@ -283,8 +283,11 @@ class _HomepageState extends State<Homepage> {
       controlAffinity: ListTileControlAffinity.leading,
       title: Text(checkboxContents.listName),
       onChanged: (value) {
+        // tempExamData.add(checkboxContents.listName);
         setState(() {
           checkboxContents.value = value!;
+          examContentsAll.value =
+              examContents.every((examContent) => examContent.value);
           if (checkboxContents.value == true) {
             if (selectedExam.contains(checkboxContents.listName)) {
               return;
@@ -294,14 +297,8 @@ class _HomepageState extends State<Homepage> {
           } else if (checkboxContents.value == false) {
             selectedExam.remove(checkboxContents.listName);
           }
-          // else if (examContentsAll.value == true) {
-          //   selectedExam.clear();
-          //   // selectedExam = List.from(examContents);
-          // }
-          print(selectedExam);
-
-          examContentsAll.value =
-              examContents.every((examContent) => examContent.value);
+          // print(examContentsAll.value);
+          // print(selectedExam);
         });
       },
     );
@@ -320,17 +317,16 @@ class _HomepageState extends State<Homepage> {
     if (value == null) return;
 
     setState(() {
-      // selectedExams.add(examContentsAll.listName);
       examContentsAll.value = value;
-      examContents.forEach((examContent) => examContent.value = value);
-      // if (examContentsAll.value == true) {
-      //   selectedExam.clear();
-      //   selectedExam.add(examContentsAll.listName);
-      //   // selectedExam = List.from(examContents.listName);
-      //   print(selectedExam);
-      // } else {
-      //   selectedExam.clear();
-      // }
+      selectedExam.clear();
+      for (var examContent in examContents) {
+        examContent.value = value;
+        selectedExam.add(examContent.listName);
+      }
+      if (examContentsAll.value == false) {
+        selectedExam.clear();
+      }
+      // print(examContentsAll.value);
       // print(selectedExam);
     });
   }
