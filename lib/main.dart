@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:statemgmt_demo_2/Homepage.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'bloc_state_management/Bloc/filters_bloc.dart';
+import 'bloc_state_management/bloc_home_page.dart';
 
 void main() {
   runApp(const MyApp());
@@ -16,7 +18,8 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.green,
       ),
-      home: const Homepage(),
+      home: BlocProvider<FiltersBloc>(
+          create: (context) => FiltersBloc(), child: const BlocHomepage()),
     );
   }
 }
