@@ -17,5 +17,7 @@ class TypesRadioEvent extends FiltersEvent {
 
 class ExamsCheckbox extends FiltersEvent {
   String newSelectedExam;
-  ExamsCheckbox({required this.newSelectedExam});
+  bool newSelectedValue;
+  ExamsCheckbox(
+      {required this.newSelectedExam, required this.newSelectedValue});
 }

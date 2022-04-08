@@ -16,7 +16,9 @@ class RadioState extends FiltersState {
 
 class ExamCheckboxFilters extends FiltersState {
   final String changedExam;
-  ExamCheckboxFilters({required this.changedExam});
+  final bool changedExamValue;
+  ExamCheckboxFilters(
+      {required this.changedExam, required this.changedExamValue});
 }
 
 // class FiltersTypes extends FiltersState {
