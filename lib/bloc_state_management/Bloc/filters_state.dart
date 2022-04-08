@@ -1,3 +1,5 @@
+import 'package:statemgmt_demo_2/bloc_state_management/Data/exam_data.dart';
+
 abstract class FiltersState {}
 
 class FiltersInitial extends FiltersState {
@@ -14,16 +16,17 @@ class RadioState extends FiltersState {
   });
 }
 
-class ExamCheckboxFilters extends FiltersState {
+class ExamCheckboxFiltersState extends FiltersState {
   final String changedExam;
   final bool changedExamValue;
-  ExamCheckboxFilters(
+  ExamCheckboxFiltersState(
       {required this.changedExam, required this.changedExamValue});
 }
 
-// class FiltersTypes extends FiltersState {
-//   final String filterTypes;
-//   FiltersTypes({
-//     required this.filterTypes,
-//   });
-// }
+class SubmitState extends FiltersState {
+  final String status;
+  final String type;
+  final List<ExamData> exams;
+
+  SubmitState({required this.status, required this.type, required this.exams});
+}

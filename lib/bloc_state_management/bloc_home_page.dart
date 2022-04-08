@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:statemgmt_demo_2/bloc_state_management/Widgets/exam_widget.dart';
+import 'package:statemgmt_demo_2/bloc_state_management/Widgets/submit_widget.dart';
 import 'package:statemgmt_demo_2/bloc_state_management/Widgets/type_widget.dart';
 
 import 'Widgets/status_widget.dart';
@@ -54,9 +55,11 @@ class BlocHomepage extends StatelessWidget {
               ),
             ),
           ),
-          const ExamWidget()
+          const ExamWidget(),
         ],
       )),
+      // bottomNavigationBar: const SubmitWidget(),
+      floatingActionButton: const SubmitWidget(),
     );
   }
 }

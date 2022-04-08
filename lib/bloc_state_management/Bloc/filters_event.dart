@@ -21,3 +21,5 @@ class ExamsCheckbox extends FiltersEvent {
   ExamsCheckbox(
       {required this.newSelectedExam, required this.newSelectedValue});
 }
+
+class SubmitEvent extends FiltersEvent {}
